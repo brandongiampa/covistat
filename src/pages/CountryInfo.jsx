@@ -1,28 +1,29 @@
 import {useContext, useEffect} from 'react'
 import {Link} from 'react-router-dom'
 import SelectedCountryContext from '../context/SelectedCountryContext'
+import WorldStatsContext from '../context/WorldStatsContext'
 import {useParams} from 'react-router-dom'
 import Spinner from '../components/reusable/Spinner'
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { Doughnut } from "react-chartjs-2";
-
-ChartJS.register(ArcElement, Tooltip, Legend);
+import BarGraph from '../components/reusable/BarGraph'
 
 function CountryInfo() { 
     const urlCountry = useParams().country
-    const {selectedCountryStats, getSelectedCountryStats, selectedCountryStatsLoading} = useContext(SelectedCountryContext)
+    const { selectedCountryStats, getSelectedCountryStats, selectedCountryStatsLoading } = useContext(SelectedCountryContext)
+    const { worldStats, worldStatsLoading, getWorldStats } = useContext(WorldStatsContext)
 
     useEffect(() => {
         getSelectedCountryStats(urlCountry)
+        getWorldStats()
     }, [])
 
     const h1Classes = "text-5xl lg:text-8xl mt-5 mb-2 lg:mb-4"
     const h2Classes = "text-lg lg:text-5xl underline mt-4 lg:mt-6 mb-1 lg:mb-5"
     const pClasses = "lg:text-3xl lg:mb-1"
 
-    if (!selectedCountryStatsLoading && selectedCountryStats.length) {
+    if (!selectedCountryStatsLoading && selectedCountryStats.length && !worldStatsLoading && worldStats.length) {
         return (
-            <div className="hero bg-base-200 py-6">
+            <>
+                <div className="hero bg-base-200 py-6 my-5">
                 <div>
                         <h1 className={ h1Classes }>{ urlCountry }</h1>
                         <p className={ pClasses }>{ selectedCountryStats[0].continent }, <i>pop. {selectedCountryStats[0].population}</i></p>
@@ -53,10 +54,29 @@ function CountryInfo() {
                         </p>
                         <p className={ pClasses }>Updated { selectedCountryStats[0].day }</p>
                         <br />
-                        <Link className="link text-gray italic mb-5 lg:text-lg lg:mt-5" to="/">Back</Link>
                     </div>
-                    {/* <Doughnut data={...} /> */}
-            </div>
+                </div>
+                <div className="container mx-auto w-100 lg:w-75 xl:w-50">
+                    <BarGraph 
+                        title="Deaths"
+                        countryStat={selectedCountryStats[0].deaths['1M_pop']}
+                        worldStat={worldStats[0].deaths['1M_pop']}
+                    />
+                    <BarGraph 
+                        title="Cases"
+                        countryStat={selectedCountryStats[0].deaths['1M_pop']}
+                        worldStat={worldStats[0].deaths['1M_pop']}
+                    />
+                    <BarGraph 
+                        title="Tests"
+                        countryStat={selectedCountryStats[0].deaths['1M_pop']}
+                        worldStat={worldStats[0].deaths['1M_pop']}
+                    />
+                    <div className="flex align-items-center justify-content-center p-6">
+                        <Link className="link text-gray mx-auto my-5" to="/">{ '<< Back to Home' }</Link>
+                    </div>
+                </div> 
+            </>
             )
     }
     else {
