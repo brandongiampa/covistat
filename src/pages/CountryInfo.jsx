@@ -3,6 +3,10 @@ import {Link} from 'react-router-dom'
 import SelectedCountryContext from '../context/SelectedCountryContext'
 import {useParams} from 'react-router-dom'
 import Spinner from '../components/reusable/Spinner'
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Doughnut } from "react-chartjs-2";
+
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 function CountryInfo() { 
     const urlCountry = useParams().country
@@ -51,7 +55,7 @@ function CountryInfo() {
                         <br />
                         <Link className="link text-gray italic mb-5 lg:text-lg lg:mt-5" to="/">Back</Link>
                     </div>
-                
+                    {/* <Doughnut data={...} /> */}
             </div>
             )
     }
