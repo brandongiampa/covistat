@@ -4,33 +4,88 @@ const apiReducer = (state, action) => {
             return {
                 ...state,
                 countries: action.payload,
-                loading: false
+                countriesLoading: false
+            }
+        }
+        case 'SET_COUNTRIES_LOADING': {
+            return {
+                ...state, 
+                countriesLoading: true
             }
         }
         case 'GET_WORLD_STATS': {
             return {
                 ...state,
                 worldStats: action.payload,
-                loading: false
+                worldStatsLoading: false
             }
         }
-        case 'SET_COUNTRY': {
-            return {
-                ...state,
-                country: action.payload
-            }
-        }
-        case 'GET_COUNTRY_STATS': {
-            return {
-                ...state,
-                countryStats: action.payload,
-                loading: false
-            }
-        }
-        case 'SET_LOADING': {
+        case 'SET_WORLD_STATS_LOADING': {
             return {
                 ...state, 
-                loading: true
+                worldStatsLoading: true
+            }
+        }
+        case 'SET_HIGHEST_CASES': {
+            return {
+                ...state,
+                highestCases: action.payload
+            }
+        }
+        case 'SET_LOWEST_CASES': {
+            return {
+                ...state,
+                lowestCases: action.payload
+            }
+        }
+        case 'SET_HIGHEST_DEATHS': {
+            return {
+                ...state,
+                highestDeaths: action.payload
+            }
+        }
+        case 'SET_LOWEST_DEATHS': {
+            return {
+                ...state,
+                lowestDeaths: action.payload
+            }
+        }
+        case 'SET_HIGHEST_TESTS': {
+            return {
+                ...state,
+                highestTests: action.payload
+            }
+        }
+        case 'SET_LOWEST_TESTS': {
+            return {
+                ...state,
+                lowestTests: action.payload
+            }
+        }
+        case 'SELECT_COUNTRY': {
+            return {
+                ...state,
+                selectedCountry: action.payload
+            }
+        }
+        case 'GET_SELECTED_COUNTRY_STATS': {
+            return {
+                ...state,
+                selectedCountryStats: action.payload,
+                selectedCountryStatsloading: false
+            }
+        }
+        case 'SET_SELECTED_COUNTRY_STATS_LOADING': {
+            return {
+                ...state, 
+                selectedCountryStatsLoading: true
+            }
+        }
+        case 'SET_SELECTED_COUNTRY_IS_VALID': {
+            console.log(action.payload)
+            return {
+                ...state, 
+                selectedCountryisValid: action.payload
             }
         }
         default: {

@@ -1,27 +1,29 @@
 import './App.css';
-import { ApiProvider } from './context/ApiContext.js'
-import Hero from './components/layout/Hero'
+import { CountriesProvider } from './context/CountriesContext.js'
+import { WorldStatsProvider } from './context/WorldStatsContext.js'
+import { SelectedCountryProvider } from './context/SelectedCountryContext.js'
+import Home from './pages/Home'
+import CountryInfo from './pages/CountryInfo'
+import Navbar from './components/layout/Navbar'
+import Footer from './components/layout/Footer'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
 function App() {
   return (
-    <ApiProvider>
-      <div className="App">
-        <header className="App-header">
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-        <Hero />
-      </div>
-    </ApiProvider>
+    <SelectedCountryProvider>
+      <WorldStatsProvider>
+        <CountriesProvider>
+          <Router>
+            <Navbar />
+            <Routes>
+                <Route exact path="/" element={<Home />} />
+                <Route path="/countries/:country" element={<CountryInfo />} />
+            </Routes>
+            <Footer />
+          </Router>
+        </CountriesProvider>
+      </WorldStatsProvider>
+    </SelectedCountryProvider>
   );
 }
 

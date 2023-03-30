@@ -1,33 +1,35 @@
-import { createContext, useReducer, useState } from 'react'
+import { createContext, useReducer } from 'react'
 import apiReducer from './ApiReducer.js'
 
-const ApiContext = createContext()
+const CountriesContext = createContext()
 
 const API_KEY = process.env.REACT_APP_COVISTAT_API_KEY
 const API_HOST = process.env.REACT_APP_COVISTAT_API_HOST
 const API_URL = process.env.REACT_APP_COVISTAT_API_URL
 
-export const ApiProvider = ({children}) => {
+export const CountriesProvider = ({children}) => {
+
+    const options = {
+        method: 'GET',
+        headers: {
+            'X-RapidAPI-Key': API_KEY,
+            'X-RapidAPI-Host': API_HOST
+        }
+    }
+
     const initialState = {
-        countries: []
+        countries: [],
+        countriesLoading: false
     }
 
     const [state, dispatch] = useReducer(apiReducer, initialState)
 
     const setLoading = () => {
-        dispatch('SET_LOADING')
+        dispatch('SET_COUNTRIES_LOADING')
     }
 
     const getCountries = () => {
         setLoading()
-
-        const options = {
-            method: 'GET',
-            headers: {
-                'X-RapidAPI-Key': API_KEY,
-                'X-RapidAPI-Host': API_HOST
-            }
-        }
         
         fetch(`${API_URL}/countries`, options)
             .then(response => response.json())
@@ -41,13 +43,13 @@ export const ApiProvider = ({children}) => {
     }
 
     return (
-        <ApiContext.Provider value={{
+        <CountriesContext.Provider value={{
             countries: state.countries,
             getCountries
         }}>
             {children}
-        </ApiContext.Provider>
+        </CountriesContext.Provider>
     )
 }
 
-export default ApiContext
+export default CountriesContext
