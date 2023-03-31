@@ -17,7 +17,7 @@ function TextDropdown({setButtonEnabled}) {
     }
 
     return (
-        <div className="form-control w-full max-w-xs">
+        <div className="form-control w-full">
             <label className="label">
                 <span className="label-text">Select Country</span>
             </label>
@@ -27,7 +27,7 @@ function TextDropdown({setButtonEnabled}) {
                 list="input-countries"
                 name="select-country"
                 id="select-country"
-                className="input input-bordered w-full max-w-xs" />
+                className="input input-bordered w-full w-100" />
                 <datalist id="input-countries">
                     {
                         countries.map((country) => (
