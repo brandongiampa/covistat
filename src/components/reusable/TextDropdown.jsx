@@ -31,7 +31,7 @@ function TextDropdown({setButtonEnabled}) {
                 <datalist id="input-countries">
                     {
                         countries.map((country) => (
-                            <option key={country} value={country}>{country}</option>
+                            <option key={country} value={country}>{country.split("-").join(" ")}</option>
                         ))
                     }
                 </datalist>

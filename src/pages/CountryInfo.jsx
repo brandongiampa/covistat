@@ -25,7 +25,7 @@ function CountryInfo() {
             <>
                 <div className="hero bg-base-200 py-6 my-5">
                 <div>
-                        <h1 className={ h1Classes }>{ urlCountry }</h1>
+                        <h1 className={ h1Classes }>{ urlCountry.split("-").join(" ") }</h1>
                         <p className={ pClasses }>{ selectedCountryStats[0].continent }, <i>pop. {selectedCountryStats[0].population}</i></p>
                         <hr />
                         <h2 className={ h2Classes }>Cases</h2>
