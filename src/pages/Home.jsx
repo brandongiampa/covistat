@@ -35,41 +35,39 @@ function Home() {
       { 
         !worldStatsLoading && worldStats.length &&
           (
-            <div className="container mx-auto py-1">
-              <h2 className="text-4xl text-center mx-4 my-6 font-bold">Countries on Alert</h2>
-              <div className="stats stats-vertical lg:stats-horizontal shadow">
+            <div className="container mx-auto py-5 mb-5">
+              <h2 className="text-4xl text-center mx-6 pt-6 my-6 font-bold">Countries on Alert</h2>
+              <div className="stats stats-vertical shadow mx-auto flex flex-col content-center">
                 <Stat 
-                  title="Most Deaths"
+                  title="Highest Death Rate"
                   country={highestDeaths.country}
                   number={highestDeaths.rate}
                   color="danger" />
                 <Stat 
                   title="Highest Case Rate"
-                  // country="Brazil"
-                  // number="12"
                   country={highestCases.country}
                   number={highestCases.rate}
                   color="danger" />
                 <Stat 
-                  title="Least Available Tests"
+                  title="Lowest Test Availability"
                   country={lowestTests.country}
                   number={lowestTests.rate}
                   color="danger" />
               </div>
-              <h2 className="text-4xl text-center mx-4 my-6 font-bold">Countries Performing Well</h2>
-              <div className="stats stats-vertical lg:stats-horizontal shadow">
+              <h2 className="text-4xl text-center mx-5 pt-6 my-6 font-bold">Countries Performing Well</h2>
+              <div className="stats stats-vertical shadow mx-auto flex flex-col content-center pb-5">
                 <Stat 
-                  title="Least Deaths"
+                  title="Lowest Death Rate"
                   country={lowestDeaths.country}
                   number={lowestDeaths.rate}
                   color="safe" />
                 <Stat 
-                  title="Least Cases"
+                  title="Lowest Case Rate"
                   country={lowestCases.country}
                   number={lowestCases.rate}
                   color="safe" />
                 <Stat 
-                  title="Most Available Tests"
+                  title="Highest Test Availability"
                   country={highestTests.country}
                   number={highestTests.rate}
                   color="safe" />

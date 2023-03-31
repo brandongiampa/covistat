@@ -16,9 +16,9 @@ function CountryInfo() {
         getWorldStats()
     }, [])
 
-    const h1Classes = "text-5xl lg:text-8xl mt-5 mb-2 lg:mb-4"
+    const h1Classes = "text-5xl lg:text-7xl mt-5 mb-2 lg:mb-4"
     const h2Classes = "text-lg lg:text-5xl underline mt-4 lg:mt-6 mb-1 lg:mb-5"
-    const pClasses = "lg:text-3xl lg:mb-1"
+    const pClasses = "lg:text-2xl lg:mb-1"
 
     if (!selectedCountryStatsLoading && selectedCountryStats.length && !worldStatsLoading && worldStats.length) {
         return (
@@ -56,7 +56,7 @@ function CountryInfo() {
                         <br />
                     </div>
                 </div>
-                <div className="container mx-auto w-100 lg:w-75 xl:w-50">
+                <div className="container mx-auto p-5 w-100 lg:w-75 xl:w-50">
                     <BarGraph 
                         title="Deaths"
                         countryStat={selectedCountryStats[0].deaths['1M_pop']}
