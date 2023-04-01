@@ -21,7 +21,6 @@ function TextDropdown({setButtonEnabled}) {
     }
 
     const handleKeyPress = (e) => {
-        console.log(e)
         if (e.charCode === 13 || e.keyCode === 13) {
             for (let stat of worldStats) {
                 if (e.target.value === stat.country) {

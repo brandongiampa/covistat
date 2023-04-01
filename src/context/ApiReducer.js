@@ -89,13 +89,6 @@ const apiReducer = (state, action) => {
                 selectedCountryStatsLoading: true
             }
         }
-        case 'SET_SELECTED_COUNTRY_IS_VALID': {
-            console.log(action.payload)
-            return {
-                ...state, 
-                selectedCountryisValid: action.payload
-            }
-        }
         default: {
             return state
         }

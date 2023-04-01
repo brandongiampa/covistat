@@ -36,7 +36,6 @@ export const SelectedCountryProvider = ({children}) => {
         fetch(`${API_URL}/statistics?country=${country}`, options)
             .then(response => response.json())
             .then((response) => {
-                console.log(response.response)
                 dispatch({
                     type: "GET_SELECTED_COUNTRY_STATS",
                     payload: response.response

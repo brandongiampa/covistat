@@ -1,4 +1,4 @@
-import { createContext, useReducer, useState } from 'react'
+import { createContext, useReducer } from 'react'
 import apiReducer from './ApiReducer.js'
 
 const WorldStatsContext = createContext()
@@ -149,64 +149,6 @@ export const WorldStatsProvider = ({children}) => {
                     type: "SET_ALL_COUNTRIES",
                     payload: stats[allCountriesFinder]
                 })
-
-                // for (let item of response.response) {
-                //     if (item.country === 'All') continue
-                //     if (item.cases['1M_pop'] && item.cases['1M_pop'] > state.highestCases.rate) {
-                //         dispatch({
-                //             type: "SET_HIGHEST_CASES",
-                //             payload: {
-                //                 country: item.country,
-                //                 rate: item.cases['1M_pop']
-                //             }
-                //         })
-                //     }
-                //     if (item.cases['1M_pop'] && item.cases['1M_pop'] < state.lowestCases.rate) {
-                //         dispatch({
-                //             type: "SET_LOWEST_CASES",
-                //             payload: {
-                //                 country: item.country,
-                //                 rate: item.cases['1M_pop']
-                //             }
-                //         })
-                //     }
-                //     if (item.deaths['1M_pop'] && item.deaths['1M_pop'] > state.highestDeaths.rate) {
-                //         dispatch({
-                //             type: "SET_HIGHEST_DEATHS",
-                //             payload: {
-                //                 country: item.country,
-                //                 rate: item.deaths['1M_pop']
-                //             }
-                //         })
-                //     }
-                //     if (item.deaths['1M_pop'] && item.deaths['1M_pop'] < state.lowestDeaths.rate) {
-                //         dispatch({
-                //             type: "SET_LOWEST_DEATHS",
-                //             payload: {
-                //                 country: item.country,
-                //                 rate: item.deaths['1M_pop']
-                //             }
-                //         })
-                //     }
-                //     if (item.tests['1M_pop'] && item.tests['1M_pop'] > state.highestTests.rate) {
-                //         dispatch({
-                //             type: "SET_HIGHEST_TESTS",
-                //             payload: {
-                //                 country: item.country,
-                //                 rate: item.tests['1M_pop']
-                //             }
-                //         })
-                //     }
-                //     if (item.tests['1M_pop'] && item.tests['1M_pop'] < state.lowestTests.rate) {
-                //         dispatch({
-                //             type: "SET_LOWEST_TESTS",
-                //             payload: {
-                //                 country: item.country,
-                //                 rate: item.tests['1M_pop']
-                //             }
-                //         })
-                //     }
-                // }
             })
             .catch(err => console.error(err))
             .then(() => {return})

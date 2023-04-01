@@ -20,7 +20,6 @@ function Home() {
 
   useEffect( () => {
     getWorldStats()
-    console.log(worldStats)
   }, [])
 
   return (
