@@ -15,7 +15,7 @@ function Home() {
     highestDeaths,
     lowestDeaths,
     highestTests,
-    lowestTests,
+    lowestTests
   } = useContext(WorldStatsContext)
 
   useEffect( () => {

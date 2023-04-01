@@ -26,6 +26,14 @@ const apiReducer = (state, action) => {
                 worldStatsLoading: true
             }
         }
+        case 'SET_ALL_COUNTRIES': {
+            return {
+                ...state,
+                allCountriesCases: action.payload.cases['1M_pop'],
+                allCountriesDeaths: action.payload.deaths['1M_pop'],
+                allCountriesTests: action.payload.tests['1M_pop'],
+            }
+        }
         case 'SET_HIGHEST_CASES': {
             return {
                 ...state,

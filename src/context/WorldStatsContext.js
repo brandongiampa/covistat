@@ -20,6 +20,18 @@ export const WorldStatsProvider = ({children}) => {
     const initialState = {
         worldStats: [],
         worldStatsLoading: true,
+        allCountriesCases: {
+            country: "loading...",
+            rate: -1
+        },
+        allCountriesDeaths: {
+            country: "loading...",
+            rate: -1
+        },
+        allCountriesTests: {
+            country: "loading...",
+            rate: -1
+        },
         highestCases: {
             country: "loading...",
             rate: -1
@@ -42,7 +54,7 @@ export const WorldStatsProvider = ({children}) => {
         },
         lowestTests: {
             country: "loading...",
-            rate: 1000001
+            rate: 1000000001
         }
     }
 
@@ -58,72 +70,143 @@ export const WorldStatsProvider = ({children}) => {
         fetch(`${API_URL}/statistics`, options)
             .then(response => response.json())
             .then((response) => {
+                const stats = response.response
                 dispatch({
                     type: "GET_WORLD_STATS",
-                    payload: response.response
+                    payload: stats
                 })
-                console.log("Part I complete")
-                for (let item of response.response) {
-                    if (item.country === 'All') continue
-                    if (item.cases['1M_pop'] && item.cases['1M_pop'] > state.highestCases.rate) {
-                        console.log(item.country)
-                        dispatch({
-                            type: "SET_HIGHEST_CASES",
-                            payload: {
-                                country: item.country,
-                                rate: item.cases['1M_pop']
-                            }
-                        })
+
+                /**
+                 * Order by deaths ascending. Pass null values and get lowest not null.
+                 */
+                stats.sort((a,b) => a.cases['1M_pop']-b.cases['1M_pop'])
+                let firstNotNull = 0
+                while (!stats[firstNotNull].cases['1M_pop']) firstNotNull++
+                dispatch({
+                    type: "SET_HIGHEST_CASES",
+                    payload: {
+                        country: stats[stats.length-1].country,
+                        rate: stats[stats.length-1].cases['1M_pop']
                     }
-                    if (item.cases['1M_pop'] && item.cases['1M_pop'] < state.lowestCases.rate) {
-                        dispatch({
-                            type: "SET_LOWEST_CASES",
-                            payload: {
-                                country: item.country,
-                                rate: item.cases['1M_pop']
-                            }
-                        })
+                })
+                dispatch({
+                    type: "SET_LOWEST_CASES",
+                    payload: {
+                        country: stats[firstNotNull].country,
+                        rate: stats[firstNotNull].cases['1M_pop']
                     }
-                    if (item.deaths['1M_pop'] && item.deaths['1M_pop'] > state.highestDeaths.rate) {
-                        dispatch({
-                            type: "SET_HIGHEST_DEATHS",
-                            payload: {
-                                country: item.country,
-                                rate: item.deaths['1M_pop']
-                            }
-                        })
+                })
+
+                /**
+                 * Order by cases ascending. Pass null values and get lowest not null.
+                 */
+                stats.sort((a,b) => a.deaths['1M_pop']-b.deaths['1M_pop'])
+                firstNotNull = 0
+                while (!stats[firstNotNull].deaths['1M_pop']) firstNotNull++
+                dispatch({
+                    type: "SET_HIGHEST_DEATHS",
+                    payload: {
+                        country: stats[stats.length-1].country,
+                        rate: stats[stats.length-1].deaths['1M_pop']
                     }
-                    if (item.deaths['1M_pop'] && item.deaths['1M_pop'] < state.lowestDeaths.rate) {
-                        dispatch({
-                            type: "SET_LOWEST_DEATHS",
-                            payload: {
-                                country: item.country,
-                                rate: item.deaths['1M_pop']
-                            }
-                        })
+                })
+                dispatch({
+                    type: "SET_LOWEST_DEATHS",
+                    payload: {
+                        country: stats[firstNotNull].country,
+                        rate: stats[firstNotNull].deaths['1M_pop']
                     }
-                    if (item.tests['1M_pop'] && item.tests['1M_pop'] > state.highestTests.rate) {
-                        dispatch({
-                            type: "SET_HIGHEST_TESTS",
-                            payload: {
-                                country: item.country,
-                                rate: item.tests['1M_pop']
-                            }
-                        })
+                })
+
+                /**
+                 * Order by tests ascending. Pass null values and get lowest not null.
+                 */
+                stats.sort((a,b) => a.tests['1M_pop']-b.tests['1M_pop'])
+                firstNotNull = 0
+                while (!stats[firstNotNull].tests['1M_pop']) firstNotNull++
+                dispatch({
+                    type: "SET_HIGHEST_TESTS",
+                    payload: {
+                        country: stats[stats.length-1].country,
+                        rate: stats[stats.length-1].tests['1M_pop']
                     }
-                    if (item.tests['1M_pop'] && item.tests['1M_pop'] < state.lowestTests.rate) {
-                        dispatch({
-                            type: "SET_LOWEST_TESTS",
-                            payload: {
-                                country: item.country,
-                                rate: item.tests['1M_pop']
-                            }
-                        })
+                })
+                dispatch({
+                    type: "SET_LOWEST_TESTS",
+                    payload: {
+                        country: stats[firstNotNull].country,
+                        rate: stats[firstNotNull].tests['1M_pop']
                     }
-                    
-                    //console.log(item)
-                }
-                console.log("Part II complete")
+                })
+
+                /**
+                 * Search through array to get "All" values.
+                 */
+                let allCountriesFinder = 0
+                while (stats[allCountriesFinder].country !== "All") allCountriesFinder++
+
+                dispatch({
+                    type: "SET_ALL_COUNTRIES",
+                    payload: stats[allCountriesFinder]
+                })
+
+                // for (let item of response.response) {
+                //     if (item.country === 'All') continue
+                //     if (item.cases['1M_pop'] && item.cases['1M_pop'] > state.highestCases.rate) {
+                //         dispatch({
+                //             type: "SET_HIGHEST_CASES",
+                //             payload: {
+                //                 country: item.country,
+                //                 rate: item.cases['1M_pop']
+                //             }
+                //         })
+                //     }
+                //     if (item.cases['1M_pop'] && item.cases['1M_pop'] < state.lowestCases.rate) {
+                //         dispatch({
+                //             type: "SET_LOWEST_CASES",
+                //             payload: {
+                //                 country: item.country,
+                //                 rate: item.cases['1M_pop']
+                //             }
+                //         })
+                //     }
+                //     if (item.deaths['1M_pop'] && item.deaths['1M_pop'] > state.highestDeaths.rate) {
+                //         dispatch({
+                //             type: "SET_HIGHEST_DEATHS",
+                //             payload: {
+                //                 country: item.country,
+                //                 rate: item.deaths['1M_pop']
+                //             }
+                //         })
+                //     }
+                //     if (item.deaths['1M_pop'] && item.deaths['1M_pop'] < state.lowestDeaths.rate) {
+                //         dispatch({
+                //             type: "SET_LOWEST_DEATHS",
+                //             payload: {
+                //                 country: item.country,
+                //                 rate: item.deaths['1M_pop']
+                //             }
+                //         })
+                //     }
+                //     if (item.tests['1M_pop'] && item.tests['1M_pop'] > state.highestTests.rate) {
+                //         dispatch({
+                //             type: "SET_HIGHEST_TESTS",
+                //             payload: {
+                //                 country: item.country,
+                //                 rate: item.tests['1M_pop']
+                //             }
+                //         })
+                //     }
+                //     if (item.tests['1M_pop'] && item.tests['1M_pop'] < state.lowestTests.rate) {
+                //         dispatch({
+                //             type: "SET_LOWEST_TESTS",
+                //             payload: {
+                //                 country: item.country,
+                //                 rate: item.tests['1M_pop']
+                //             }
+                //         })
+                //     }
+                // }
             })
             .catch(err => console.error(err))
             .then(() => {return})
@@ -133,6 +216,9 @@ export const WorldStatsProvider = ({children}) => {
         <WorldStatsContext.Provider value={{
             worldStats: state.worldStats,
             getWorldStats,
+            allCountriesCases: state.allCountriesCases,
+            allCountriesDeaths: state.allCountriesDeaths,
+            allCountriesTests: state.allCountriesTests,
             highestCases: state.highestCases,
             lowestCases: state.lowestCases,
             highestDeaths: state.highestDeaths,

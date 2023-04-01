@@ -8,8 +8,17 @@ import BarGraph from '../components/reusable/BarGraph'
 
 function CountryInfo() { 
     const urlCountry = useParams().country
-    const { selectedCountryStats, getSelectedCountryStats, selectedCountryStatsLoading } = useContext(SelectedCountryContext)
-    const { worldStats, worldStatsLoading, getWorldStats } = useContext(WorldStatsContext)
+    const { 
+        selectedCountryStats, 
+        getSelectedCountryStats, 
+        selectedCountryStatsLoading } = useContext(SelectedCountryContext)
+    const { 
+        worldStats, 
+        worldStatsLoading, 
+        getWorldStats,
+        allCountriesCases,
+        allCountriesDeaths,
+        allCountriesTests } = useContext(WorldStatsContext)
 
     useEffect(() => {
         getSelectedCountryStats(urlCountry)
@@ -60,17 +69,17 @@ function CountryInfo() {
                     <BarGraph 
                         title="Deaths"
                         countryStat={selectedCountryStats[0].deaths['1M_pop']}
-                        worldStat={worldStats[0].deaths['1M_pop']}
+                        worldStat={allCountriesDeaths}
                     />
                     <BarGraph 
                         title="Cases"
-                        countryStat={selectedCountryStats[0].deaths['1M_pop']}
-                        worldStat={worldStats[0].deaths['1M_pop']}
+                        countryStat={selectedCountryStats[0].cases['1M_pop']}
+                        worldStat={allCountriesCases}
                     />
                     <BarGraph 
                         title="Tests"
-                        countryStat={selectedCountryStats[0].deaths['1M_pop']}
-                        worldStat={worldStats[0].deaths['1M_pop']}
+                        countryStat={selectedCountryStats[0].tests['1M_pop']}
+                        worldStat={allCountriesTests}
                     />
                     <div className="flex align-items-center justify-content-center p-6">
                         <Link className="link text-gray mx-auto my-5" to="/">{ '<< Back to Home' }</Link>
