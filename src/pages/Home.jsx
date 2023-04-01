@@ -36,7 +36,7 @@ function Home() {
         !worldStatsLoading && worldStats.length &&
           (
             <div className="container mx-auto py-5 mb-5">
-              <h2 className="text-4xl text-center mx-6 pt-6 my-6 font-bold">Countries on Alert</h2>
+              <h2 className="text-5xl text-center mx-6 pt-6 my-6 font-bold">Countries on Alert</h2>
               <div className="stats stats-vertical shadow mx-auto flex flex-col content-center">
                 <Stat 
                   title="Highest Death Rate"
@@ -54,7 +54,7 @@ function Home() {
                   number={lowestTests.rate}
                   color="danger" />
               </div>
-              <h2 className="text-4xl text-center mx-5 pt-6 my-6 font-bold">Countries Performing Well</h2>
+              <h2 className="text-5xl text-center mx-5 pt-6 my-6 font-bold">Countries Performing Well</h2>
               <div className="stats stats-vertical shadow mx-auto flex flex-col content-center pb-5">
                 <Stat 
                   title="Lowest Death Rate"
